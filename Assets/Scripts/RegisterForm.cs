@@ -4,8 +4,7 @@ using UnityEngine.UI;
 
 namespace FaceOff {
     public class RegisterForm : Form
-    {
-        //private byte[] AvatarBytes;
+    {        
         private string Name => NameInput.text;
 
         [SerializeField] private ImageLoader imageLoader;
@@ -30,7 +29,7 @@ namespace FaceOff {
 
         public void OnPickAvatarClick()
         {
-            /*AvatarBytes=*/imageLoader.PickImageFromFile(AvatarImage);
+            imageLoader.PickImageFromFile(AvatarImage);
         }
 
         public void OnRegisterButtonClick()

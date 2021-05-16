@@ -7,9 +7,8 @@ using UnityEngine.UI;
 namespace FaceOff
 {
     public class UserPostsForm : Form
-    {
-        //private byte[] PictureBytes;
-        public string PostText => PostInput.text;
+    {        
+        public string PostText => PostInput?.text;
 
         [SerializeField] private ImageLoader imageLoader;
         [SerializeField] private TMPro.TMP_Text Name;
@@ -47,7 +46,7 @@ namespace FaceOff
 
         public void OnPickPostPictureClick()
         {
-            /*PictureBytes = */imageLoader.PickImageFromFile(PostPicture);
+            imageLoader.PickImageFromFile(PostPicture);
         }
 
         public void OnPostButtonClick()

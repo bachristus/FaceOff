@@ -3,6 +3,7 @@ using UnityEngine;
 using Mono.Data.Sqlite;
 using System.Data;
 using System;
+using System.IO;
 
 namespace FaceOff
 {
@@ -11,19 +12,16 @@ namespace FaceOff
         public event Action<Post> PostUpdated;
         public event Action<Comment> CommentedUpdated;
 
-        [SerializeField] private string DbFilePath = @"E:\FaceOff.db";
+        [SerializeField] private string DbFileName = @"FaceOff.db";
         SqliteConnection DbConnection;
         
-        //SqliteCommand DBCommand;
-
         // Start is called before the first frame update
         void Start()
         {
 
-            string connectionString = "URI=file:" + DbFilePath/*+ Application.dataPath + DbName*/;
+            string connectionString = "URI=file:" + Path.Combine(Application.dataPath, DbFileName);
             using (DbConnection = new SqliteConnection(connectionString))
-            {
-                DbConnection.Update += DbConnection_Update;
+            {                
                 DbConnection.Open();
 
                 //DropPersonTable();
@@ -36,15 +34,6 @@ namespace FaceOff
 
                 DbConnection.Close();
             }
-        }
-
-        private void DbConnection_Update(object sender, UpdateEventArgs e)
-        {
-            //if (e.Table.ToLower() == "post")
-            //{
-            //    Po
-            //    PostUpdated?.Invoke()
-            //}
         }
 
         private void CreatePostTable()

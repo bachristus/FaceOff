@@ -10,8 +10,7 @@ namespace FaceOff
 
         public SignInForm signInForm;
         public RegisterForm registerUserForm;
-        public UserPostsForm postsForm;
-        //public GameObject singlePostForm;
+        public UserPostsForm postsForm;        
 
         private Form currentForm;
 
