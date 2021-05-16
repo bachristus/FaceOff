@@ -36,9 +36,15 @@ namespace FaceOff.GUI
         internal void Show(User user, IEnumerable<Post> posts)
         {
             Name.text = user.Name;
-            if (user.Avatar == null) return;
-            ImageLoader.PutBitmapIntoImage(user.Avatar, Avatar);
+            if (user.Avatar != null)
+            {
+                ImageLoader.PutBitmapIntoImage(user.Avatar, Avatar);
+            }
+            ShowPosts(posts);
+        }
 
+        internal void ShowPosts(IEnumerable<Post> posts)
+        {
             PostsList.ShowPosts(posts);
         }
 

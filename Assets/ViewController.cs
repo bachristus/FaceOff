@@ -33,6 +33,8 @@ namespace FaceOff.GUI
         private void OnPostRequested(Post post)
         {
             model.CreatePost(post);
+            var posts = model.GetPosts();
+            postsForm.ShowPosts(posts);
         }
 
         private void OnSignOutRequested()

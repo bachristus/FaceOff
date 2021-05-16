@@ -112,7 +112,10 @@ namespace FaceOff
         {
             try
             {
-                return db.GetPosts();
+                var posts = db.GetPosts();
+                posts.Sort((a, b) => { return a.When.CompareTo(b.When); });
+                posts.Reverse();
+                return posts;
             }
             catch (Exception e)
             {
