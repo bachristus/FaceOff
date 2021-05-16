@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace FaceOff
+namespace FaceOff.GUI
 {
     public class ViewController : MonoBehaviour
     {
@@ -48,7 +46,8 @@ namespace FaceOff
             if (model.SignIn(user))
             {
                 ShowForm(postsForm);
-                postsForm.ShowUser(model.CurrentUser);
+                var posts=model.GetPosts();
+                postsForm.Show(model.CurrentUser, posts);
             }
         }
 

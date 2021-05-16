@@ -2,12 +2,12 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FaceOff {
+namespace FaceOff.GUI
+{
     public class RegisterForm : Form
     {        
         private string Name => NameInput.text;
 
-        [SerializeField] private ImageLoader imageLoader;
 
         [SerializeField] private TMPro.TMP_InputField NameInput;
 
@@ -29,12 +29,12 @@ namespace FaceOff {
 
         public void OnPickAvatarClick()
         {
-            imageLoader.PickImageFromFile(AvatarImage);
+            ImageLoader.PickImageFromFile(AvatarImage);
         }
 
         public void OnRegisterButtonClick()
         {
-            CreateNewUserRequested?.Invoke(new User { Name = Name, Avatar = imageLoader.GetTexturePNG(AvatarImage) });;
+            CreateNewUserRequested?.Invoke(new User { Name = Name, Avatar = ImageLoader.GetTexturePNG(AvatarImage) });;
         }
     }
 }

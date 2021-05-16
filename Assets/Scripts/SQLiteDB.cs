@@ -151,12 +151,12 @@ namespace FaceOff
 
                 if (user!=null&&user.ID >= 0)
                 {
-                    dbCommand.CommandText = "SELECT (ID, PersonID, Text, Picture, datetime(Timestamp,'unixepoch')) FROM Post WHERE PersonID=@id;";
+                    dbCommand.CommandText = "SELECT Post.ID, PersonID, Person.Name, Text, Picture, datetime(Timestamp,'unixepoch') FROM Post JOIN Person ON Post.PersonID=Person.ID WHERE PersonID=@id;";
                     dbCommand.Parameters.Add("@id", DbType.Int32).Value = user.ID;
                 }                
                 else
                 {
-                    dbCommand.CommandText = "SELECT (ID, PersonID, Text, Picture, datetime(Timestamp,'unixepoch')) FROM Post;";                   
+                    dbCommand.CommandText = "SELECT Post.ID, PersonID, Person.Name, Text, Picture, datetime(Timestamp,'unixepoch') FROM Post JOIN Person ON Post.PersonID=Person.ID ;";                   
                 }
 
                 var reader = dbCommand.ExecuteReader();
@@ -168,10 +168,10 @@ namespace FaceOff
                         var result = new Post
                         {
                             ID = reader.GetInt32(0),
-                            User = new User { ID = reader.GetInt32(1) },
-                            Text = reader.GetString(2),
+                            User = new User { ID = reader.GetInt32(1), Name=reader.GetString(2) },
+                            Text = reader.GetString(3),
                             Picture = (byte[])reader["Picture"],
-                            When = reader.GetDateTime(4)
+                            When = reader.GetDateTime(5)
                         };
                         list.Add(result);
                     }

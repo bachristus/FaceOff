@@ -1,9 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace FaceOff {
+namespace FaceOff.GUI
+{
     public class SignInForm : Form
     {        
         [SerializeField] private TMPro.TMP_InputField UserName;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace FaceOff
+namespace FaceOff.GUI
 {
     public abstract class Form: MonoBehaviour
     {

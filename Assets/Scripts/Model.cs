@@ -108,6 +108,20 @@ namespace FaceOff
             return null;
         }
 
+        public List<Post> GetPosts()
+        {
+            try
+            {
+                return db.GetPosts();
+            }
+            catch (Exception e)
+            {
+                ErrorOccured?.Invoke("Unable to get posts");
+            }
+
+            return null;
+        }
+
         public List<Comment> GetComments(Post post)
         {
             try

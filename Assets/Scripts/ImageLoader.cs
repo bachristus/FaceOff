@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace FaceOff {
-    public class ImageLoader : MonoBehaviour
+    public static class ImageLoader 
     {       
-        public void PickImageFromFile(Image image)
+        public static void PickImageFromFile(Image image)
         {
 
             string[] filters = new[] { "Image files", "png,jpg,jpeg,bmp", "All files", "*" };
@@ -23,14 +23,15 @@ namespace FaceOff {
             //FileDialog.CreateOpenFileDialog().ShowDialog();
         }
 
-        public void PutBitmapIntoImage(byte[] bitmap, Image image)
+        public static void PutBitmapIntoImage(byte[] bitmap, Image image)
         {
             Texture2D texture = new Texture2D(1920, 1280);
             texture.LoadImage(bitmap);
             image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.0f), 100.0f);
+            image.preserveAspect = true;
         }
 
-        internal byte[] GetTexturePNG(Image image)
+        public static byte[] GetTexturePNG(Image image)
         {
             return (image.mainTexture as Texture2D)?.EncodeToPNG();
         }

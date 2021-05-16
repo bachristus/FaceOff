@@ -4,18 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FaceOff
+namespace FaceOff.GUI
 {
     public class UserPostsForm : Form
     {        
         public string PostText => PostInput?.text;
 
-        [SerializeField] private ImageLoader imageLoader;
         [SerializeField] private TMPro.TMP_Text Name;
         [SerializeField] private Image Avatar;
 
         [SerializeField] private TMPro.TMP_InputField PostInput;
         [SerializeField] private Image PostPicture;
+
+        [SerializeField] private PostsListView PostsList;
 
         public event Action SignOutRequested;
         public event Action<Post> PostRequested;
@@ -32,11 +33,13 @@ namespace FaceOff
 
         }
 
-        internal void ShowUser(User user)
+        internal void Show(User user, IEnumerable<Post> posts)
         {
             Name.text = user.Name;
             if (user.Avatar == null) return;
-            imageLoader.PutBitmapIntoImage(user.Avatar, Avatar);
+            ImageLoader.PutBitmapIntoImage(user.Avatar, Avatar);
+
+            PostsList.ShowPosts(posts);
         }
 
         public void OnSignOutClick()
@@ -46,12 +49,12 @@ namespace FaceOff
 
         public void OnPickPostPictureClick()
         {
-            imageLoader.PickImageFromFile(PostPicture);
+            ImageLoader.PickImageFromFile(PostPicture);
         }
 
         public void OnPostButtonClick()
         {
-            PostRequested?.Invoke(new Post { Text = PostText, Picture = imageLoader.GetTexturePNG(PostPicture)});
+            PostRequested?.Invoke(new Post { Text = PostText, Picture = ImageLoader.GetTexturePNG(PostPicture)});
         }
     }
 }
