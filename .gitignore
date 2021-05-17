@@ -64,3 +64,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# SQLite DB
+
+*.db
+*.db.meta
