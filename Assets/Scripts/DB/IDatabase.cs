@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using FaceOff.DataObjects;
 
-
-namespace FaceOff
+namespace FaceOff.DB
 {
     public interface IDatabase 
     {

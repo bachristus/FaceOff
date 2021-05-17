@@ -1,17 +1,18 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using FaceOff.DataObjects;
 
 namespace FaceOff.GUI
 {
-    public class RegisterForm : Form
+    public class RegisterNewUserView : View
     {        
         private string Name => NameInput.text;
 
 
         [SerializeField] private TMPro.TMP_InputField NameInput;
 
-        [SerializeField] private Image AvatarImage;
+        [SerializeField] private PictureImage AvatarPicture;
 
         public event Action<User> CreateNewUserRequested;
 
@@ -29,12 +30,18 @@ namespace FaceOff.GUI
 
         public void OnPickAvatarClick()
         {
-            ImageLoader.PickImageFromFile(AvatarImage);
+            AvatarPicture.Picture=new Picture(ImageLoader.PickImageFromFile());
         }
 
         public void OnRegisterButtonClick()
         {
-            CreateNewUserRequested?.Invoke(new User { Name = Name, Avatar = ImageLoader.GetTexturePNG(AvatarImage) });;
+            CreateNewUserRequested?.Invoke(new User { Name = Name, Avatar = AvatarPicture.Picture });
+        }
+
+        public override void ClearContent()
+        {
+            NameInput.text = "";
+            AvatarPicture.Picture = null;
         }
     }
 }

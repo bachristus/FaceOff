@@ -1,4 +1,4 @@
-﻿namespace FaceOff
+﻿namespace FaceOff.DataObjects
 {
     public class Record
     {

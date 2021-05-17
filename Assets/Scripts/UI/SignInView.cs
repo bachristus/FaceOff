@@ -1,9 +1,10 @@
+using FaceOff.DataObjects;
 using System;
 using UnityEngine;
 
 namespace FaceOff.GUI
 {
-    public class SignInForm : Form
+    public class SignInView : View
     {        
         [SerializeField] private TMPro.TMP_InputField UserName;
 
@@ -31,6 +32,12 @@ namespace FaceOff.GUI
         public void OnRegisterNewUser()
         {
             RegisterNewUserRequested?.Invoke();
+        }
+
+        public override void ClearContent()
+        {
+            UserName.text = "";
+            //UserName."Enter your name";
         }
     }
 }

@@ -1,14 +1,13 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System;
+using FaceOff.DataObjects;
 
 namespace FaceOff.GUI
 {
     public class IndividualPostView : MonoBehaviour
     {
-        public Image PostImage;
-        public TMPro.TMP_Text PostText;
-        
+        public PictureImage PostImage;
+        public TMPro.TMP_Text PostText;        
 
         public event Action<Post> PostDetailsRequested;
 
@@ -27,23 +26,23 @@ namespace FaceOff.GUI
         private Post CurrentPost;
 
 
-        private void Awake()
-        {
-            PostImage = GetComponentInChildren<Image>();
-            PostText = GetComponentInChildren<TMPro.TMP_Text>();            
-        }
+        //private void Awake()
+        //{
+        //    PostImage = GetComponentInChildren<Image>();
+        //    PostText = GetComponentInChildren<TMPro.TMP_Text>();            
+        //}
 
-        // Start is called before the first frame update
-        void Start()
-        {
+        //// Start is called before the first frame update
+        //void Start()
+        //{
 
-        }
+        //}
 
-        // Update is called once per frame
-        void Update()
-        {
+        //// Update is called once per frame
+        //void Update()
+        //{
 
-        }
+        //}
 
         public void OnShowDetails()
         {
@@ -54,12 +53,12 @@ namespace FaceOff.GUI
         {
             if (CurrentPost == null)
             {
-                PostImage.sprite = null;
+                PostImage.Picture = null;
                 PostText.text = "";
             }
             else
             {
-                ImageLoader.PutBitmapIntoImage(CurrentPost.Picture, PostImage);                
+                PostImage.Picture = CurrentPost.Picture;
                 PostText.text = String.Format($"[{CurrentPost.When.ToString("G")}] {CurrentPost.User.Name} : {CurrentPost.Text}");
             }
         }

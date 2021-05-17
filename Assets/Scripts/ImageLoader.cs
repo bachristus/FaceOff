@@ -7,33 +7,25 @@ using UnityEngine.UI;
 namespace FaceOff {
     public static class ImageLoader 
     {       
-        public static void PickImageFromFile(Image image)
+        public static byte[] PickImageFromFile()
         {
-
-            string[] filters = new[] { "Image files", "png,jpg,jpeg,bmp", "All files", "*" };
-            string path = EditorUtility.OpenFilePanelWithFilters("Pick avatar picture", "", filters);
-
-            byte[] fileContent = null;
-            if (path.Length != 0)
+            try
             {
-                fileContent = File.ReadAllBytes(path);
-                PutBitmapIntoImage(fileContent, image);
+                string[] filters = new[] { "Image files", "png,jpg,jpeg,bmp", "All files", "*" };
+                string path = EditorUtility.OpenFilePanelWithFilters("Pick avatar picture", "", filters);
+
+                if (path.Length != 0)
+                {
+                    return File.ReadAllBytes(path);                    
+                }
+                return null;
+
+                //FileDialog.CreateOpenFileDialog().ShowDialog();
             }
-
-            //FileDialog.CreateOpenFileDialog().ShowDialog();
-        }
-
-        public static void PutBitmapIntoImage(byte[] bitmap, Image image)
-        {
-            Texture2D texture = new Texture2D(1920, 1280);
-            texture.LoadImage(bitmap);
-            image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.0f), 100.0f);
-            image.preserveAspect = true;
-        }
-
-        public static byte[] GetTexturePNG(Image image)
-        {
-            return (image.mainTexture as Texture2D)?.EncodeToPNG();
-        }
+            catch(Exception)
+            {
+                return null;
+            }
+        }       
     }
 }

@@ -4,8 +4,9 @@ using Mono.Data.Sqlite;
 using System.Data;
 using System;
 using System.IO;
+using FaceOff.DataObjects;
 
-namespace FaceOff
+namespace FaceOff.DB
 {
     public class SQLiteDB : MonoBehaviour, IDatabase
     {
@@ -78,7 +79,7 @@ namespace FaceOff
             var dbCommand = DbConnection.CreateCommand();
             dbCommand.CommandText = query;
             dbCommand.Parameters.Add("@name",DbType.String).Value= user.Name;
-            dbCommand.Parameters.Add("@avatar", DbType.Binary).Value=user.Avatar;
+            dbCommand.Parameters.Add("@avatar", DbType.Binary).Value=user.Avatar.Bytes;
             ExecuteScalarDbCommand(dbCommand);
         }
 
@@ -116,7 +117,7 @@ namespace FaceOff
                     {
                         ID = reader.GetInt32(0),
                         Name = reader.GetString(1),
-                        Avatar = (byte[])reader["Avatar"]
+                        Avatar = new Picture((byte[])reader["Avatar"])
                     };                    
                 }
                 DbConnection.Close();
@@ -131,7 +132,7 @@ namespace FaceOff
             dbCommand.CommandText = query;
             dbCommand.Parameters.Add("@personid", DbType.Int32).Value = post.User.ID;
             dbCommand.Parameters.Add("@text", DbType.String).Value = post.Text;
-            dbCommand.Parameters.Add("@picture", DbType.Binary).Value = post.Picture;
+            dbCommand.Parameters.Add("@picture", DbType.Binary).Value = post.Picture.Bytes;
            
             ExecuteScalarDbCommand(dbCommand);
         }
@@ -170,7 +171,7 @@ namespace FaceOff
                             ID = reader.GetInt32(0),
                             User = new User { ID = reader.GetInt32(1), Name=reader.GetString(2) },
                             Text = reader.GetString(3),
-                            Picture = (byte[])reader["Picture"],
+                            Picture = new Picture((byte[])reader["Picture"]),
                             When = reader.GetDateTime(5)
                         };
                         list.Add(result);

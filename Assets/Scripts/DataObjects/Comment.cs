@@ -1,6 +1,6 @@
 using System;
 
-namespace FaceOff
+namespace FaceOff.DataObjects
 {
     public class Comment : Record
     {
